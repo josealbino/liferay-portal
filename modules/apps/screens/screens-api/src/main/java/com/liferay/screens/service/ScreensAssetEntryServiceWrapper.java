@@ -16,7 +16,7 @@ package com.liferay.screens.service;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.service.ServiceWrapper;
+import com.liferay.portal.kernel.service.ServiceWrapper;
 
 /**
  * Provides a wrapper for {@link ScreensAssetEntryService}.
@@ -35,7 +35,7 @@ public class ScreensAssetEntryServiceWrapper implements ScreensAssetEntryService
 
 	@Override
 	public com.liferay.portal.kernel.json.JSONArray getAssetEntries(
-		com.liferay.portlet.asset.service.persistence.AssetEntryQuery assetEntryQuery,
+		com.liferay.asset.kernel.service.persistence.AssetEntryQuery assetEntryQuery,
 		java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _screensAssetEntryService.getAssetEntries(assetEntryQuery, locale);

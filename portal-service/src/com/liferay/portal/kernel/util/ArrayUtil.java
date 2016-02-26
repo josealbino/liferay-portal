@@ -1324,6 +1324,29 @@ public class ArrayUtil {
 		return list.toArray(new String[list.size()]);
 	}
 
+	public static <T> T[] remove(T[] array, T value) {
+		if (isEmpty(array)) {
+			return array;
+		}
+
+		List<T> list = new ArrayList<>();
+
+		for (int i = 0; i < array.length; i++) {
+			if (value != array[i]) {
+				list.add(array[i]);
+			}
+		}
+
+		if (array.length == list.size()) {
+			return array;
+		}
+
+		Class<?> arrayClass = array.getClass();
+
+		return list.toArray(
+			(T[])Array.newInstance(arrayClass.getComponentType(), list.size()));
+	}
+
 	public static String[] removeByPrefix(String[] array, String prefix) {
 		List<String> list = new ArrayList<>();
 
@@ -1348,7 +1371,7 @@ public class ArrayUtil {
 
 	public static void reverse(boolean[] array) {
 		for (int left = 0, right = array.length - 1; left < right;
-				left++, right--) {
+			left++, right--) {
 
 			boolean value = array[left];
 
@@ -1359,7 +1382,7 @@ public class ArrayUtil {
 
 	public static void reverse(char[] array) {
 		for (int left = 0, right = array.length - 1; left < right;
-				left++, right--) {
+			left++, right--) {
 
 			char value = array[left];
 
@@ -1370,7 +1393,7 @@ public class ArrayUtil {
 
 	public static void reverse(double[] array) {
 		for (int left = 0, right = array.length - 1; left < right;
-				left++, right--) {
+			left++, right--) {
 
 			double value = array[left];
 
@@ -1381,7 +1404,7 @@ public class ArrayUtil {
 
 	public static void reverse(int[] array) {
 		for (int left = 0, right = array.length - 1; left < right;
-				left++, right--) {
+			left++, right--) {
 
 			int value = array[left];
 
@@ -1392,7 +1415,7 @@ public class ArrayUtil {
 
 	public static void reverse(long[] array) {
 		for (int left = 0, right = array.length - 1; left < right;
-				left++, right--) {
+			left++, right--) {
 
 			long value = array[left];
 
@@ -1403,7 +1426,7 @@ public class ArrayUtil {
 
 	public static void reverse(short[] array) {
 		for (int left = 0, right = array.length - 1; left < right;
-				left++, right--) {
+			left++, right--) {
 
 			short value = array[left];
 
@@ -1414,7 +1437,7 @@ public class ArrayUtil {
 
 	public static <T> void reverse(T[] array) {
 		for (int left = 0, right = array.length - 1; left < right;
-				left++, right--) {
+			left++, right--) {
 
 			T value = array[left];
 

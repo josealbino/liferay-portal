@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_0_0.dtd">
 
-<service-builder package-path="com.liferay.portal" auto-import-default-references="false" mvcc-enabled="true">
+<service-builder api-package-path="com.liferay.portal.kernel" package-path="com.liferay.portal" auto-import-default-references="false" mvcc-enabled="true">
 	<namespace>Portal</namespace>
 	<entity name="Account" local-service="true" remote-service="true">
 
@@ -587,8 +587,6 @@
 		<column name="iconImageId" type="long" />
 		<column name="themeId" type="String" />
 		<column name="colorSchemeId" type="String" />
-		<column name="wapThemeId" type="String" />
-		<column name="wapColorSchemeId" type="String" />
 		<column name="css" type="String" />
 		<column name="priority" type="int" />
 		<column name="layoutPrototypeUuid" type="String" />
@@ -721,6 +719,7 @@
 		<reference package-path="com.liferay.portal" entity="LayoutRevision" />
 		<reference package-path="com.liferay.portal" entity="LayoutSetBranch" />
 		<reference package-path="com.liferay.portal" entity="RecentLayoutBranch" />
+		<reference package-path="com.liferay.portal" entity="Resource" />
 		<reference package-path="com.liferay.portal" entity="User" />
 	</entity>
 	<entity name="LayoutFriendlyURL" uuid="true" local-service="true" remote-service="false">
@@ -859,8 +858,6 @@
 		<column name="iconImageId" type="long" />
 		<column name="themeId" type="String" />
 		<column name="colorSchemeId" type="String" />
-		<column name="wapThemeId" type="String" />
-		<column name="wapColorSchemeId" type="String" />
 		<column name="css" type="String" />
 		<column name="status" type="int" />
 		<column name="statusByUserId" type="long" />
@@ -957,8 +954,6 @@
 		<column name="logoId" type="long" />
 		<column name="themeId" type="String" />
 		<column name="colorSchemeId" type="String" />
-		<column name="wapThemeId" type="String" />
-		<column name="wapColorSchemeId" type="String" />
 		<column name="css" type="String" />
 		<column name="pageCount" type="int" />
 		<column name="settings" type="String" />
@@ -1014,8 +1009,6 @@
 		<column name="logoId" type="long" />
 		<column name="themeId" type="String" />
 		<column name="colorSchemeId" type="String" />
-		<column name="wapThemeId" type="String" />
-		<column name="wapColorSchemeId" type="String" />
 		<column name="css" type="String" />
 		<column name="settings" type="String" />
 		<column name="layoutSetPrototypeUuid" type="String" />
@@ -2608,6 +2601,7 @@
 		<column name="screenName" type="String" />
 		<column name="emailAddress" type="String" />
 		<column name="facebookId" type="long" />
+		<column name="googleUserId" type="String" />
 		<column name="ldapServerId" type="long" />
 		<column name="openId" type="String" />
 		<column name="portraitId" type="long" />
@@ -2680,6 +2674,10 @@
 		<finder name="C_FID" return-type="User">
 			<finder-column name="companyId" />
 			<finder-column name="facebookId" />
+		</finder>
+		<finder name="C_GUID" return-type="User">
+			<finder-column name="companyId" />
+			<finder-column name="googleUserId" />
 		</finder>
 		<finder name="C_O" return-type="User">
 			<finder-column name="companyId" />
@@ -2761,7 +2759,6 @@
 		<column name="name" type="String" accessor="true" />
 		<column name="description" type="String" />
 		<column name="addedByLDAPImport" type="boolean" />
-		<column name="lastPublishDate" type="Date" />
 
 		<!-- Relationships -->
 
@@ -3333,6 +3330,7 @@
 		<exception>CountryIdd</exception>
 		<exception>CountryName</exception>
 		<exception>CountryNumber</exception>
+		<exception>DuplicateGoogleUserId</exception>
 		<exception>DuplicateGroup</exception>
 		<exception>DuplicateOpenId</exception>
 		<exception>DuplicateOrganization</exception>

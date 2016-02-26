@@ -16,11 +16,11 @@ package com.liferay.social.kernel.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
-import com.liferay.portal.service.ServiceContext;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
 
@@ -299,7 +299,7 @@ public class SocialActivityAchievementWrapper
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_socialActivityAchievement.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -384,7 +384,7 @@ public class SocialActivityAchievementWrapper
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.social.kernel.model.SocialActivityAchievement> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.social.kernel.model.SocialActivityAchievement> toCacheModel() {
 		return _socialActivityAchievement.toCacheModel();
 	}
 

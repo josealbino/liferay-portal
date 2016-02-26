@@ -17,8 +17,8 @@ package com.liferay.social.kernel.model;
 import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.portal.kernel.annotation.ImplementationClassName;
+import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.util.Accessor;
-import com.liferay.portal.model.PersistedModel;
 
 /**
  * The extended model interface for the SocialActivity service. Represents a row in the &quot;SocialActivity&quot; database table, with each column mapped to a property of this class.
@@ -54,7 +54,7 @@ public interface SocialActivity extends SocialActivityModel, PersistedModel {
 			}
 		};
 
-	public com.liferay.portlet.asset.model.AssetEntry getAssetEntry();
+	public com.liferay.asset.kernel.model.AssetEntry getAssetEntry();
 
 	public java.lang.String getExtraDataValue(java.lang.String key)
 		throws com.liferay.portal.kernel.json.JSONException;
@@ -66,7 +66,7 @@ public interface SocialActivity extends SocialActivityModel, PersistedModel {
 	public boolean isClassName(java.lang.String className);
 
 	public void setAssetEntry(
-		com.liferay.portlet.asset.model.AssetEntry assetEntry);
+		com.liferay.asset.kernel.model.AssetEntry assetEntry);
 
 	public void setExtraDataValue(java.lang.String key, java.lang.String value)
 		throws com.liferay.portal.kernel.json.JSONException;

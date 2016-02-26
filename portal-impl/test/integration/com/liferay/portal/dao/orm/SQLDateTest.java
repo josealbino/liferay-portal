@@ -18,10 +18,10 @@ import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.SessionFactory;
+import com.liferay.portal.kernel.model.Release;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.TransactionalTestRule;
 import com.liferay.portal.kernel.util.Time;
-import com.liferay.portal.model.Release;
 import com.liferay.portal.model.impl.ReleaseImpl;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
@@ -89,9 +89,9 @@ public class SQLDateTest {
 
 	protected long readTimeJDBC() throws SQLException {
 		try (Connection connection = DataAccess.getConnection();
-				Statement statement = connection.createStatement();
-					ResultSet resultSet = statement.executeQuery(
-						_READ_RELEASE_MODIFIED_DATE)) {
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(
+				_READ_RELEASE_MODIFIED_DATE)) {
 
 			Assert.assertTrue(resultSet.next());
 
@@ -124,8 +124,8 @@ public class SQLDateTest {
 
 	protected void writeTimeJDBC(long time) throws SQLException {
 		try (Connection connection = DataAccess.getConnection();
-				PreparedStatement preparedStatement =
-					connection.prepareStatement(_WRITE_RELEASE_MODIFIED_DATE)) {
+			PreparedStatement preparedStatement =
+				connection.prepareStatement(_WRITE_RELEASE_MODIFIED_DATE)) {
 
 			preparedStatement.setTimestamp(1, new Timestamp(time));
 

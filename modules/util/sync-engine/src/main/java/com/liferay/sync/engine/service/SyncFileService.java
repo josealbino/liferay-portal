@@ -248,6 +248,10 @@ public class SyncFileService {
 							syncFile.getFilePathName());
 
 					for (SyncFile childSyncFile : childSyncFiles) {
+						if (childSyncFile.isSystem()) {
+							continue;
+						}
+
 						childSyncFile.setUiEvent(syncFile.getUiEvent());
 
 						doDeleteSyncFile(childSyncFile, notify);
@@ -748,6 +752,10 @@ public class SyncFileService {
 	public static SyncFile updateFileSyncFile(
 			Path filePath, long syncAccountId, SyncFile syncFile)
 		throws Exception {
+
+		if (Files.notExists(filePath)) {
+			return null;
+		}
 
 		// Local sync file
 

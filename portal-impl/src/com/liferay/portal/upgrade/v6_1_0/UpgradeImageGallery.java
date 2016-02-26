@@ -14,6 +14,10 @@
 
 package com.liferay.portal.upgrade.v6_1_0;
 
+import com.liferay.document.library.kernel.model.DLFileEntryTypeConstants;
+import com.liferay.document.library.kernel.model.DLFolderConstants;
+import com.liferay.document.library.kernel.store.DLStoreUtil;
+import com.liferay.document.library.kernel.util.ImageProcessorUtil;
 import com.liferay.portal.image.DLHook;
 import com.liferay.portal.image.DatabaseHook;
 import com.liferay.portal.image.FileSystemHook;
@@ -23,27 +27,20 @@ import com.liferay.portal.kernel.image.Hook;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Image;
+import com.liferay.portal.kernel.service.ImageLocalServiceUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.Base64;
 import com.liferay.portal.kernel.util.ClassLoaderUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
-import com.liferay.portal.model.Company;
-import com.liferay.portal.model.Image;
-import com.liferay.portal.service.ImageLocalServiceUtil;
 import com.liferay.portal.upgrade.AutoBatchPreparedStatementUtil;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.PropsValues;
-import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-import com.liferay.portlet.documentlibrary.model.DLFileEntryTypeConstants;
-import com.liferay.portlet.documentlibrary.model.DLFolder;
-import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
-import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
-import com.liferay.portlet.documentlibrary.util.ImageProcessorUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -341,14 +338,14 @@ public class UpgradeImageGallery extends UpgradeProcess {
 				"and scope = ? and primKey = ? and roleId = ?";
 
 		try (Connection con = DataAccess.getUpgradeOptimizedConnection();
-				PreparedStatement ps1 = con.prepareStatement(selectSQL);) {
+			PreparedStatement ps1 = con.prepareStatement(selectSQL);) {
 
 			ps1.setString(1, igResourceName);
 
 			try (ResultSet rs = ps1.executeQuery();
-					PreparedStatement ps2 =
-						AutoBatchPreparedStatementUtil.autoBatch(
-							con.prepareStatement(deleteSQL))) {
+				PreparedStatement ps2 =
+					AutoBatchPreparedStatementUtil.autoBatch(
+						con.prepareStatement(deleteSQL))) {
 
 				while (rs.next()) {
 					ps2.setString(1, dlResourceName);
@@ -443,7 +440,9 @@ public class UpgradeImageGallery extends UpgradeProcess {
 				"select groupId from Group_ where classNameId = ? and " +
 					"classPK = ?");
 
-			ps.setLong(1, PortalUtil.getClassNameId(Company.class.getName()));
+			ps.setLong(
+				1,
+				PortalUtil.getClassNameId("com.liferay.portal.model.Company"));
 			ps.setLong(2, companyId);
 
 			rs = ps.executeQuery();
@@ -873,10 +872,12 @@ public class UpgradeImageGallery extends UpgradeProcess {
 
 	protected void updateIGFolderPermissions() throws Exception {
 		deleteConflictingIGPermissions(
-			_IG_FOLDER_CLASS_NAME, DLFolder.class.getName());
+			_IG_FOLDER_CLASS_NAME,
+			"com.liferay.portlet.documentlibrary.model.DLFolder");
 
 		updateIGtoDLPermissions(
-			_IG_FOLDER_CLASS_NAME, DLFolder.class.getName());
+			_IG_FOLDER_CLASS_NAME,
+			"com.liferay.portlet.documentlibrary.model.DLFolder");
 	}
 
 	protected void updateIGImageEntries() throws Exception {
@@ -970,7 +971,9 @@ public class UpgradeImageGallery extends UpgradeProcess {
 					extension);
 
 				String name = String.valueOf(
-					increment(DLFileEntry.class.getName()));
+					increment(
+						"com.liferay.portlet.documentlibrary.model." +
+							"DLFileEntry"));
 
 				long size = image.getSize();
 
@@ -1051,10 +1054,12 @@ public class UpgradeImageGallery extends UpgradeProcess {
 
 	protected void updateIGImagePermissions() throws Exception {
 		deleteConflictingIGPermissions(
-			_IG_IMAGE_CLASS_NAME, DLFileEntry.class.getName());
+			_IG_IMAGE_CLASS_NAME,
+			"com.liferay.portlet.documentlibrary.model.DLFileEntry");
 
 		updateIGtoDLPermissions(
-			_IG_IMAGE_CLASS_NAME, DLFileEntry.class.getName());
+			_IG_IMAGE_CLASS_NAME,
+			"com.liferay.portlet.documentlibrary.model.DLFileEntry");
 	}
 
 	protected void updateIGtoDLPermissions(

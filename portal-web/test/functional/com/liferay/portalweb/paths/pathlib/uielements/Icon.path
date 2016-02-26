@@ -70,7 +70,7 @@
 </tr>
 <tr>
 	<td>DELETE</td>
-	<td>//*[@data-qa-id='deleteButton'] | //a[contains(@title,'Delete')]/span[contains(@class,'icon-monospaced')]</td>
+	<td>//*[contains(@data-qa-id,'deleteButton')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -111,6 +111,11 @@
 <tr>
 	<td>EDIT</td>
 	<td>//span/*[name()='svg'][contains(@class,'icon-pencil')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CUSTOM_EDIT</td>
+	<td>//a[contains(@class,'taglib-icon')]/i[contains(@class,'icon-edit')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -164,6 +169,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>MOVE_TO_RECYCLE_BIN</td>
+	<td>//a[contains(@data-qa-id,'recycle-binButton')]/span[contains(@class,'icon-monospaced')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>PRINT</td>
 	<td>//span/a[contains(.,'Print')]</td>
 	<td></td>
@@ -176,6 +186,11 @@
 <tr>
 	<td>REORDER</td>
 	<td>//a/i[@class='icon-reorder']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SHARE</td>
+	<td>//div[contains(@class,'dropdown-menu')]//a[@title='Share']</td>
 	<td></td>
 </tr>
 <tr>

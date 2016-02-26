@@ -18,9 +18,12 @@ import com.liferay.sync.engine.documentlibrary.handler.GetSyncDLObjectUpdateHand
 import com.liferay.sync.engine.documentlibrary.handler.Handler;
 import com.liferay.sync.engine.model.SyncSite;
 import com.liferay.sync.engine.service.SyncSiteService;
-import com.liferay.sync.engine.util.ReleaseInfo;
+import com.liferay.sync.engine.util.ServerInfo;
 
 import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Shinn Lok
@@ -38,6 +41,13 @@ public class GetSyncDLObjectUpdateEvent extends BaseEvent {
 	@Override
 	public Handler<Void> getHandler() {
 		return _handler;
+	}
+
+	@Override
+	protected void logEvent() {
+		Class<?> clazz = getClass();
+
+		_logger.trace("Processing event {}", clazz.getSimpleName());
 	}
 
 	@Override
@@ -72,7 +82,7 @@ public class GetSyncDLObjectUpdateEvent extends BaseEvent {
 		parameters.put("repositoryId", syncSite.getGroupId());
 
 		if ((syncSite.getRemoteSyncTime() == -1) &&
-			ReleaseInfo.isServerCompatible(getSyncAccountId(), 5)) {
+			ServerInfo.supportsRetrieveFromCache(getSyncAccountId())) {
 
 			parameters.put("retrieveFromCache", false);
 		}
@@ -84,6 +94,9 @@ public class GetSyncDLObjectUpdateEvent extends BaseEvent {
 
 	private static final String _URL_PATH =
 		"/sync-web.syncdlobject/get-sync-dl-object-update";
+
+	private static final Logger _logger = LoggerFactory.getLogger(
+		GetSyncDLObjectUpdateEvent.class);
 
 	private final Handler<Void> _handler;
 

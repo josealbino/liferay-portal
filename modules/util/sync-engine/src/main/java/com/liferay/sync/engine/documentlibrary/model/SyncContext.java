@@ -17,10 +17,8 @@ package com.liferay.sync.engine.documentlibrary.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import com.liferay.sync.engine.model.SyncSite;
 import com.liferay.sync.engine.model.SyncUser;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,6 +32,9 @@ public class SyncContext {
 	public static final String AUTH_TYPE_SCREEN_NAME = "screenName";
 
 	public static final String AUTH_TYPE_USER_ID = "userId";
+
+	public static final String PREFERENCE_KEY_AUTHENTICATION_RETRY_INTERVAL =
+		"sync.client.authentication.retry.interval";
 
 	public static final String PREFERENCE_KEY_BATCH_FILE_MAX_SIZE =
 		"sync.client.batch.file.max.size";
@@ -70,10 +71,6 @@ public class SyncContext {
 
 	public Map<String, String> getPortletPreferencesMap() {
 		return portletPreferencesMap;
-	}
-
-	public List<SyncSite> getSyncSites() {
-		return syncSites;
 	}
 
 	public SyncUser getSyncUser() {
@@ -122,10 +119,6 @@ public class SyncContext {
 		this.socialOfficeInstalled = socialOfficeInstalled;
 	}
 
-	public void setSyncSites(List<SyncSite> syncSites) {
-		this.syncSites = syncSites;
-	}
-
 	public void setSyncUser(SyncUser syncUser) {
 		this.syncUser = syncUser;
 	}
@@ -145,9 +138,6 @@ public class SyncContext {
 	protected int portalBuildNumber;
 	protected Map<String, String> portletPreferencesMap;
 	protected boolean socialOfficeInstalled;
-
-	@JsonProperty("userSitesGroups")
-	protected List<SyncSite> syncSites;
 
 	@JsonProperty("user")
 	protected SyncUser syncUser;

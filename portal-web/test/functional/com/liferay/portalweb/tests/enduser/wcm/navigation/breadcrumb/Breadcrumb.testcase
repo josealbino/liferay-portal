@@ -86,6 +86,8 @@
 	</command>
 
 	<command name="DisableShowApplicationBreadcrumb" priority="4">
+		<property name="custom.properties" value="default.layout.template.id=1_column" />
+
 		<execute macro="ProductMenu#gotoControlPanelSites">
 			<var name="portlet" value="Sites" />
 		</execute>
@@ -131,9 +133,10 @@
 		</execute>
 
 		<execute macro="MessageboardsCategory#addSubcategoryToSubcategoryPG">
-			<var name="categoryName" value="MB Subcategory Name" />
+			<var name="categoryName" value="MB Category Name" />
 			<var name="subCategoryDescription" value="MB Subcategory Description" />
-			<var name="subCategoryName" value="MB Subcategory Subcategory Name" />
+			<var name="subCategoryName" value="MB Subcategory Name" />
+			<var name="subCategorySubCategoryName" value="MB Subcategory Subcategory Name" />
 		</execute>
 
 		<execute macro="Page#gotoPG">
@@ -156,6 +159,7 @@
 			<var name="categoryName" value="MB Category Name" />
 			<var name="subCategoryDescription" value="MB Subcategory Description" />
 			<var name="subCategoryName" value="MB Subcategory Name" />
+			<var name="threadsNumber" value="0" />
 		</execute>
 
 		<execute macro="MessageboardsCategory#viewSubcategoryFromSubcategoryPG">
@@ -199,6 +203,7 @@
 			<var name="categoryName" value="MB Category Name" />
 			<var name="subCategoryDescription" value="MB Subcategory Description" />
 			<var name="subCategoryName" value="MB Subcategory Name" />
+			<var name="threadsNumber" value="0" />
 		</execute>
 
 		<execute macro="MessageboardsCategory#viewSubcategoryFromSubcategoryPG">
@@ -237,6 +242,7 @@
 			<var name="categoryName" value="MB Category Name" />
 			<var name="subCategoryDescription" value="MB Subcategory Description" />
 			<var name="subCategoryName" value="MB Subcategory Name" />
+			<var name="threadsNumber" value="0" />
 		</execute>
 
 		<execute macro="MessageboardsCategory#viewSubcategoryFromSubcategoryPG">
@@ -270,7 +276,6 @@
 			<var name="page" value="Public Pages" />
 			<var name="pageName" value="Parent Page Name" />
 			<var name="siteName" value="Site Name" />
-			<var name="siteURL" value="true" />
 		</execute>
 
 		<execute macro="ProductMenu#gotoControlPanelSites">
@@ -392,12 +397,13 @@
 			<var name="checkSetupName" value="Show Guest Site" />
 		</execute>
 
-		<execute macro="TestCase#getDefaultSiteName">
-			<return from="defaultSiteName" name="defaultSiteName" />
+		<execute macro="TestCase#getSiteName">
+			<return from="siteName" name="siteName" />
+			<var name="siteName" value="${siteName}" />
 		</execute>
 
 		<execute macro="Breadcrumb#viewConfigurationPreview">
-			<var name="breadcrumbListVisible" value="${defaultSiteName},Welcome,Child Page Name" />
+			<var name="breadcrumbListVisible" value="${siteName},Welcome,Child Page Name" />
 		</execute>
 
 		<execute macro="Breadcrumb#configureBreadcrumb">
@@ -405,7 +411,7 @@
 		</execute>
 
 		<execute macro="Breadcrumb#viewConfigurationPreview">
-			<var name="breadcrumbListVisible" value="${defaultSiteName}" />
+			<var name="breadcrumbListVisible" value="${siteName}" />
 		</execute>
 
 		<execute macro="Breadcrumb#saveDisplayPreview" />
@@ -417,7 +423,7 @@
 
 		<execute macro="Breadcrumb#viewPG">
 			<var name="breadcrumbListNotVisible" value="Welcome,Child Page Name" />
-			<var name="breadcrumbListVisible" value="${defaultSiteName}" />
+			<var name="breadcrumbListVisible" value="${siteName}" />
 			<var name="pathLocator" value="PAGE" />
 		</execute>
 	</command>
@@ -452,6 +458,10 @@
 
 		<execute macro="ProductMenu#gotoControlPanelSites">
 			<var name="portlet" value="Sites" />
+		</execute>
+
+		<execute macro="Site#searchInputCP">
+			<var name="siteName" value="Child SiteName" />
 		</execute>
 
 		<execute macro="Page#add">

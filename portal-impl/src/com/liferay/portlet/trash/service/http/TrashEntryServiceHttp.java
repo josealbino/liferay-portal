@@ -19,9 +19,9 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
+import com.liferay.portal.kernel.service.http.TunnelUtil;
 import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.kernel.util.MethodKey;
-import com.liferay.portal.service.http.TunnelUtil;
 
 import com.liferay.trash.kernel.service.TrashEntryServiceUtil;
 
@@ -261,7 +261,7 @@ public class TrashEntryServiceHttp {
 	public static void moveEntry(HttpPrincipal httpPrincipal,
 		java.lang.String className, long classPK,
 		long destinationContainerModelId,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(TrashEntryServiceUtil.class,
@@ -443,7 +443,7 @@ public class TrashEntryServiceHttp {
 		};
 	private static final Class<?>[] _moveEntryParameterTypes7 = new Class[] {
 			java.lang.String.class, long.class, long.class,
-			com.liferay.portal.service.ServiceContext.class
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _restoreEntryParameterTypes8 = new Class[] {
 			long.class

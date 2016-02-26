@@ -16,6 +16,7 @@ package com.liferay.source.formatter;
 
 import com.liferay.portal.kernel.io.unsync.UnsyncBufferedReader;
 import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
+import com.liferay.portal.kernel.nio.charset.CharsetDecoderUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -38,6 +39,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.nio.ByteBuffer;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CodingErrorAction;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -545,6 +549,21 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 		processErrorMessage(fileName, "plus: " + fileName + " " + lineCount);
 	}
 
+	protected void checkUTF8(File file, String fileName) throws Exception {
+		byte[] bytes = FileUtil.getBytes(file);
+
+		try {
+			CharsetDecoder charsetDecoder =
+				CharsetDecoderUtil.getCharsetDecoder(
+					StringPool.UTF8, CodingErrorAction.REPORT);
+
+			charsetDecoder.decode(ByteBuffer.wrap(bytes));
+		}
+		catch (Exception e) {
+			processErrorMessage(fileName, "UTF-8: " + fileName);
+		}
+	}
+
 	protected abstract String doFormat(
 			File file, String fileName, String absolutePath, String content)
 		throws Exception;
@@ -626,6 +645,18 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 			if (!content.contains(copyright)) {
 				processErrorMessage(fileName, "(c): " + fileName);
 			}
+			else if (!content.startsWith(copyright) &&
+					 !content.startsWith("<%--\n" + copyright)) {
+
+				processErrorMessage(
+					fileName, "File must start with copyright: " + fileName);
+			}
+		}
+		else if (!content.startsWith(copyright) &&
+				 !content.startsWith("<%--\n" + copyright)) {
+
+			processErrorMessage(
+				fileName, "File must start with copyright: " + fileName);
 		}
 
 		if (fileName.endsWith(".jsp") || fileName.endsWith(".jspf")) {
@@ -794,6 +825,8 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 
 		_errorMessagesMap.remove(fileName);
 
+		checkUTF8(file, fileName);
+
 		String newContent = doFormat(file, fileName, absolutePath, content);
 
 		newContent = StringUtil.replace(
@@ -884,7 +917,7 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 		}
 
 		JavaClass javaClass = new JavaClass(
-			javaClassName, packagePath, file, fileName, absolutePath,
+			javaClassName, packagePath, file, fileName, absolutePath, content,
 			javaClassContent, javaClassLineCount, StringPool.TAB, null,
 			javaTermAccessLevelModifierExcludes, javaSourceProcessor);
 
@@ -1122,8 +1155,8 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 
 		_annotationsExclusions = SetUtil.fromArray(
 			new String[] {
-				"ArquillianResource", "BeanReference", "Inject", "Mock",
-				"ServiceReference", "SuppressWarnings"
+				"ArquillianResource", "BeanReference", "Captor", "Inject",
+				"Mock", "Reference", "ServiceReference", "SuppressWarnings"
 			});
 
 		return _annotationsExclusions;
@@ -1451,6 +1484,33 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 		return StringUtil.count(beforePos, StringPool.NEW_LINE) + 1;
 	}
 
+	protected int getLineLength(String line) {
+		int lineLength = 0;
+
+		int tabLength = 4;
+
+		for (char c : line.toCharArray()) {
+			if (c == CharPool.TAB) {
+				for (int i = 0; i < tabLength; i++) {
+					lineLength++;
+				}
+
+				tabLength = 4;
+			}
+			else {
+				lineLength++;
+
+				tabLength--;
+
+				if (tabLength <= 0) {
+					tabLength = 4;
+				}
+			}
+		}
+
+		return lineLength;
+	}
+
 	protected String getMainReleaseVersion() {
 		if (_mainReleaseVersion != null) {
 			return _mainReleaseVersion;
@@ -1465,7 +1525,7 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 		return _mainReleaseVersion;
 	}
 
-	protected String getModuleLangDir(String moduleLocation) {
+	protected String getModuleLangDirName(String moduleLocation) {
 		int x = moduleLocation.lastIndexOf(StringPool.SLASH);
 
 		String baseModuleName = moduleLocation.substring(0, x);
@@ -1475,7 +1535,19 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 		baseModuleName = baseModuleName.substring(
 			y + 1, baseModuleName.length());
 
-		return moduleLocation.substring(0, x + 1) + baseModuleName + "-lang";
+		String moduleLangDirName =
+			moduleLocation.substring(0, x + 1) + baseModuleName + "-lang";
+
+		File moduleLangDir = new File(moduleLangDirName);
+
+		if (!moduleLangDir.exists() &&
+			moduleLangDirName.contains("/modules/ee/")) {
+
+			moduleLangDirName = StringUtil.replaceFirst(
+				moduleLangDirName, "/modules/ee/", "/modules/");
+		}
+
+		return moduleLangDirName;
 	}
 
 	protected Properties getModuleLangLanguageProperties(String absolutePath)
@@ -1521,10 +1593,11 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 		String moduleLocation = StringUtil.replaceLast(
 			buildGradleFileLocation, StringPool.SLASH, StringPool.BLANK);
 
-		String moduleLangDir = getModuleLangDir(moduleLocation);
+		String moduleLangDirName = getModuleLangDirName(moduleLocation);
 
 		String moduleLangLanguagePropertiesFileName =
-			moduleLangDir + "/src/main/resources/content/Language.properties";
+			moduleLangDirName +
+				"/src/main/resources/content/Language.properties";
 
 		File file = new File(moduleLangLanguagePropertiesFileName);
 
@@ -1738,6 +1811,20 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 			File file, String fileName, String content, String newContent)
 		throws IOException {
 
+		if (!content.equals(newContent)) {
+			if (sourceFormatterArgs.isPrintErrors()) {
+				_sourceFormatterHelper.printError(fileName, file);
+			}
+
+			if (sourceFormatterArgs.isAutoFix()) {
+				FileUtil.write(file, newContent);
+			}
+			else if (_firstSourceMismatchException == null) {
+				_firstSourceMismatchException = new SourceMismatchException(
+					fileName, content, newContent);
+			}
+		}
+
 		if (sourceFormatterArgs.isPrintErrors()) {
 			List<String> errorMessages = _errorMessagesMap.get(fileName);
 
@@ -1749,22 +1836,6 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 		}
 
 		_modifiedFileNames.add(file.getAbsolutePath());
-
-		if (content.equals(newContent)) {
-			return;
-		}
-
-		if (sourceFormatterArgs.isAutoFix()) {
-			FileUtil.write(file, newContent);
-		}
-		else if (_firstSourceMismatchException == null) {
-			_firstSourceMismatchException = new SourceMismatchException(
-				fileName, content, newContent);
-		}
-
-		if (sourceFormatterArgs.isPrintErrors()) {
-			_sourceFormatterHelper.printError(fileName, file);
-		}
 	}
 
 	protected String replacePrimitiveWrapperInstantiation(String line) {
@@ -2058,7 +2129,7 @@ public abstract class BaseSourceProcessor implements SourceProcessor {
 	protected static Pattern attributeNamePattern = Pattern.compile(
 		"[a-z]+[-_a-zA-Z0-9]*");
 	protected static Pattern bndContentDirPattern = Pattern.compile(
-		"\tcontent=(.*?)(,\\\\|\n)");
+		"\\scontent=(.*?)(,\\\\|\n)");
 	protected static Pattern emptyCollectionPattern = Pattern.compile(
 		"Collections\\.EMPTY_(LIST|MAP|SET)");
 	protected static Pattern javaSourceInsideJSPTagPattern = Pattern.compile(

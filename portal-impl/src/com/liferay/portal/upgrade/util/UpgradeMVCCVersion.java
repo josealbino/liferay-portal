@@ -27,7 +27,6 @@ import java.io.InputStream;
 
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import java.util.List;
 
@@ -41,10 +40,12 @@ public class UpgradeMVCCVersion extends UpgradeProcess {
 		throws Exception {
 
 		for (String excludeTableName : getExcludedTableNames()) {
-			if (excludeTableName.equals(tableName)) {
+			if (StringUtil.equalsIgnoreCase(excludeTableName, tableName)) {
 				return;
 			}
 		}
+
+		tableName = normalizeName(tableName, databaseMetaData);
 
 		ResultSet tableResultSet = databaseMetaData.getTables(
 			null, null, tableName, null);
@@ -125,21 +126,6 @@ public class UpgradeMVCCVersion extends UpgradeProcess {
 
 	protected String[] getModuleTableNames() {
 		return new String[] {"BackgroundTask", "Lock_"};
-	}
-
-	protected String normalizeName(
-			String name, DatabaseMetaData databaseMetaData)
-		throws SQLException {
-
-		if (databaseMetaData.storesLowerCaseIdentifiers()) {
-			return StringUtil.toLowerCase(name);
-		}
-
-		if (databaseMetaData.storesUpperCaseIdentifiers()) {
-			return StringUtil.toUpperCase(name);
-		}
-
-		return name;
 	}
 
 	protected void upgradeMVCCVersion(

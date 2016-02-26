@@ -16,14 +16,14 @@ package com.liferay.portlet.blogs.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.blogs.kernel.service.BlogsEntryServiceUtil;
+
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.security.auth.HttpPrincipal;
+import com.liferay.portal.kernel.service.http.TunnelUtil;
 import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.kernel.util.MethodKey;
-import com.liferay.portal.service.http.TunnelUtil;
-
-import com.liferay.portlet.blogs.service.BlogsEntryServiceUtil;
 
 /**
  * Provides the HTTP utility for the
@@ -55,7 +55,7 @@ import com.liferay.portlet.blogs.service.BlogsEntryServiceUtil;
  */
 @ProviderType
 public class BlogsEntryServiceHttp {
-	public static com.liferay.portlet.blogs.model.BlogsEntry addEntry(
+	public static com.liferay.blogs.kernel.model.BlogsEntry addEntry(
 		HttpPrincipal httpPrincipal, java.lang.String title,
 		java.lang.String description, java.lang.String content,
 		int displayDateMonth, int displayDateDay, int displayDateYear,
@@ -64,7 +64,7 @@ public class BlogsEntryServiceHttp {
 		boolean smallImage, java.lang.String smallImageURL,
 		java.lang.String smallImageFileName,
 		java.io.InputStream smallImageInputStream,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
@@ -90,7 +90,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (com.liferay.portlet.blogs.model.BlogsEntry)returnObj;
+			return (com.liferay.blogs.kernel.model.BlogsEntry)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -99,7 +99,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static com.liferay.portlet.blogs.model.BlogsEntry addEntry(
+	public static com.liferay.blogs.kernel.model.BlogsEntry addEntry(
 		HttpPrincipal httpPrincipal, java.lang.String title,
 		java.lang.String subtitle, java.lang.String description,
 		java.lang.String content, int displayDateMonth, int displayDateDay,
@@ -108,7 +108,7 @@ public class BlogsEntryServiceHttp {
 		java.lang.String[] trackbacks, java.lang.String coverImageCaption,
 		com.liferay.portal.kernel.servlet.taglib.ui.ImageSelector coverImageImageSelector,
 		com.liferay.portal.kernel.servlet.taglib.ui.ImageSelector smallImageImageSelector,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
@@ -134,7 +134,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (com.liferay.portlet.blogs.model.BlogsEntry)returnObj;
+			return (com.liferay.blogs.kernel.model.BlogsEntry)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -169,7 +169,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getCompanyEntries(
+	public static java.util.List<com.liferay.blogs.kernel.model.BlogsEntry> getCompanyEntries(
 		HttpPrincipal httpPrincipal, long companyId,
 		java.util.Date displayDate, int status, int max)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -193,7 +193,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>)returnObj;
+			return (java.util.List<com.liferay.blogs.kernel.model.BlogsEntry>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -207,7 +207,7 @@ public class BlogsEntryServiceHttp {
 		java.util.Date displayDate, int status, int max, java.lang.String type,
 		double version, java.lang.String displayStyle,
 		java.lang.String feedURL, java.lang.String entryURL,
-		com.liferay.portal.theme.ThemeDisplay themeDisplay)
+		com.liferay.portal.kernel.theme.ThemeDisplay themeDisplay)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
@@ -239,7 +239,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static com.liferay.portlet.blogs.model.BlogsEntry getEntry(
+	public static com.liferay.blogs.kernel.model.BlogsEntry getEntry(
 		HttpPrincipal httpPrincipal, long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
@@ -261,7 +261,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (com.liferay.portlet.blogs.model.BlogsEntry)returnObj;
+			return (com.liferay.blogs.kernel.model.BlogsEntry)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -270,7 +270,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static com.liferay.portlet.blogs.model.BlogsEntry getEntry(
+	public static com.liferay.blogs.kernel.model.BlogsEntry getEntry(
 		HttpPrincipal httpPrincipal, long groupId, java.lang.String urlTitle)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
@@ -293,7 +293,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (com.liferay.portlet.blogs.model.BlogsEntry)returnObj;
+			return (com.liferay.blogs.kernel.model.BlogsEntry)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -302,7 +302,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupEntries(
+	public static java.util.List<com.liferay.blogs.kernel.model.BlogsEntry> getGroupEntries(
 		HttpPrincipal httpPrincipal, long groupId, java.util.Date displayDate,
 		int status, int max) {
 		try {
@@ -321,7 +321,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>)returnObj;
+			return (java.util.List<com.liferay.blogs.kernel.model.BlogsEntry>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -330,7 +330,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupEntries(
+	public static java.util.List<com.liferay.blogs.kernel.model.BlogsEntry> getGroupEntries(
 		HttpPrincipal httpPrincipal, long groupId, java.util.Date displayDate,
 		int status, int start, int end) {
 		try {
@@ -349,7 +349,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>)returnObj;
+			return (java.util.List<com.liferay.blogs.kernel.model.BlogsEntry>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -358,7 +358,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupEntries(
+	public static java.util.List<com.liferay.blogs.kernel.model.BlogsEntry> getGroupEntries(
 		HttpPrincipal httpPrincipal, long groupId, int status, int max) {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
@@ -376,7 +376,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>)returnObj;
+			return (java.util.List<com.liferay.blogs.kernel.model.BlogsEntry>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -385,7 +385,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupEntries(
+	public static java.util.List<com.liferay.blogs.kernel.model.BlogsEntry> getGroupEntries(
 		HttpPrincipal httpPrincipal, long groupId, int status, int start,
 		int end) {
 		try {
@@ -404,7 +404,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>)returnObj;
+			return (java.util.List<com.liferay.blogs.kernel.model.BlogsEntry>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -413,10 +413,10 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupEntries(
+	public static java.util.List<com.liferay.blogs.kernel.model.BlogsEntry> getGroupEntries(
 		HttpPrincipal httpPrincipal, long groupId, int status, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portlet.blogs.model.BlogsEntry> obc) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.blogs.kernel.model.BlogsEntry> obc) {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
 					"getGroupEntries", _getGroupEntriesParameterTypes11);
@@ -433,7 +433,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>)returnObj;
+			return (java.util.List<com.liferay.blogs.kernel.model.BlogsEntry>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -503,7 +503,7 @@ public class BlogsEntryServiceHttp {
 		int status, int max, java.lang.String type, double version,
 		java.lang.String displayStyle, java.lang.String feedURL,
 		java.lang.String entryURL,
-		com.liferay.portal.theme.ThemeDisplay themeDisplay)
+		com.liferay.portal.kernel.theme.ThemeDisplay themeDisplay)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
@@ -535,7 +535,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupsEntries(
+	public static java.util.List<com.liferay.blogs.kernel.model.BlogsEntry> getGroupsEntries(
 		HttpPrincipal httpPrincipal, long companyId, long groupId,
 		java.util.Date displayDate, int status, int max)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -559,7 +559,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>)returnObj;
+			return (java.util.List<com.liferay.blogs.kernel.model.BlogsEntry>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -568,10 +568,10 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupUserEntries(
+	public static java.util.List<com.liferay.blogs.kernel.model.BlogsEntry> getGroupUserEntries(
 		HttpPrincipal httpPrincipal, long groupId, long userId, int status,
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portlet.blogs.model.BlogsEntry> obc) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.blogs.kernel.model.BlogsEntry> obc) {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
 					"getGroupUserEntries", _getGroupUserEntriesParameterTypes16);
@@ -588,7 +588,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>)returnObj;
+			return (java.util.List<com.liferay.blogs.kernel.model.BlogsEntry>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -597,10 +597,10 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getGroupUserEntries(
+	public static java.util.List<com.liferay.blogs.kernel.model.BlogsEntry> getGroupUserEntries(
 		HttpPrincipal httpPrincipal, long groupId, long userId, int[] statuses,
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.portlet.blogs.model.BlogsEntry> obc) {
+		com.liferay.portal.kernel.util.OrderByComparator<com.liferay.blogs.kernel.model.BlogsEntry> obc) {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
 					"getGroupUserEntries", _getGroupUserEntriesParameterTypes17);
@@ -617,7 +617,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>)returnObj;
+			return (java.util.List<com.liferay.blogs.kernel.model.BlogsEntry>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -682,7 +682,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static java.util.List<com.liferay.portlet.blogs.model.BlogsEntry> getOrganizationEntries(
+	public static java.util.List<com.liferay.blogs.kernel.model.BlogsEntry> getOrganizationEntries(
 		HttpPrincipal httpPrincipal, long organizationId,
 		java.util.Date displayDate, int status, int max)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -707,7 +707,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (java.util.List<com.liferay.portlet.blogs.model.BlogsEntry>)returnObj;
+			return (java.util.List<com.liferay.blogs.kernel.model.BlogsEntry>)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -721,7 +721,7 @@ public class BlogsEntryServiceHttp {
 		java.util.Date displayDate, int status, int max, java.lang.String type,
 		double version, java.lang.String displayStyle,
 		java.lang.String feedURL, java.lang.String entryURL,
-		com.liferay.portal.theme.ThemeDisplay themeDisplay)
+		com.liferay.portal.kernel.theme.ThemeDisplay themeDisplay)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
@@ -754,7 +754,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static com.liferay.portlet.blogs.model.BlogsEntry moveEntryToTrash(
+	public static com.liferay.blogs.kernel.model.BlogsEntry moveEntryToTrash(
 		HttpPrincipal httpPrincipal, long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
@@ -776,7 +776,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (com.liferay.portlet.blogs.model.BlogsEntry)returnObj;
+			return (com.liferay.blogs.kernel.model.BlogsEntry)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -865,7 +865,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static com.liferay.portlet.blogs.model.BlogsEntry updateEntry(
+	public static com.liferay.blogs.kernel.model.BlogsEntry updateEntry(
 		HttpPrincipal httpPrincipal, long entryId, java.lang.String title,
 		java.lang.String description, java.lang.String content,
 		int displayDateMonth, int displayDateDay, int displayDateYear,
@@ -874,7 +874,7 @@ public class BlogsEntryServiceHttp {
 		boolean smallImage, java.lang.String smallImageURL,
 		java.lang.String smallImageFileName,
 		java.io.InputStream smallImageInputStream,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
@@ -900,7 +900,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (com.liferay.portlet.blogs.model.BlogsEntry)returnObj;
+			return (com.liferay.blogs.kernel.model.BlogsEntry)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -909,7 +909,7 @@ public class BlogsEntryServiceHttp {
 		}
 	}
 
-	public static com.liferay.portlet.blogs.model.BlogsEntry updateEntry(
+	public static com.liferay.blogs.kernel.model.BlogsEntry updateEntry(
 		HttpPrincipal httpPrincipal, long entryId, java.lang.String title,
 		java.lang.String subtitle, java.lang.String description,
 		java.lang.String content, int displayDateMonth, int displayDateDay,
@@ -918,7 +918,7 @@ public class BlogsEntryServiceHttp {
 		java.lang.String[] trackbacks, java.lang.String coverImageCaption,
 		com.liferay.portal.kernel.servlet.taglib.ui.ImageSelector coverImageImageSelector,
 		com.liferay.portal.kernel.servlet.taglib.ui.ImageSelector smallImageImageSelector,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		try {
 			MethodKey methodKey = new MethodKey(BlogsEntryServiceUtil.class,
@@ -944,7 +944,7 @@ public class BlogsEntryServiceHttp {
 				throw new com.liferay.portal.kernel.exception.SystemException(e);
 			}
 
-			return (com.liferay.portlet.blogs.model.BlogsEntry)returnObj;
+			return (com.liferay.blogs.kernel.model.BlogsEntry)returnObj;
 		}
 		catch (com.liferay.portal.kernel.exception.SystemException se) {
 			_log.error(se, se);
@@ -960,7 +960,7 @@ public class BlogsEntryServiceHttp {
 			int.class, boolean.class, boolean.class, java.lang.String[].class,
 			boolean.class, java.lang.String.class, java.lang.String.class,
 			java.io.InputStream.class,
-			com.liferay.portal.service.ServiceContext.class
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _addEntryParameterTypes1 = new Class[] {
 			java.lang.String.class, java.lang.String.class,
@@ -969,7 +969,7 @@ public class BlogsEntryServiceHttp {
 			java.lang.String[].class, java.lang.String.class,
 			com.liferay.portal.kernel.servlet.taglib.ui.ImageSelector.class,
 			com.liferay.portal.kernel.servlet.taglib.ui.ImageSelector.class,
-			com.liferay.portal.service.ServiceContext.class
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _deleteEntryParameterTypes2 = new Class[] {
 			long.class
@@ -981,7 +981,7 @@ public class BlogsEntryServiceHttp {
 			long.class, java.util.Date.class, int.class, int.class,
 			java.lang.String.class, double.class, java.lang.String.class,
 			java.lang.String.class, java.lang.String.class,
-			com.liferay.portal.theme.ThemeDisplay.class
+			com.liferay.portal.kernel.theme.ThemeDisplay.class
 		};
 	private static final Class<?>[] _getEntryParameterTypes5 = new Class[] {
 			long.class
@@ -1015,7 +1015,7 @@ public class BlogsEntryServiceHttp {
 			long.class, java.util.Date.class, int.class, int.class,
 			java.lang.String.class, double.class, java.lang.String.class,
 			java.lang.String.class, java.lang.String.class,
-			com.liferay.portal.theme.ThemeDisplay.class
+			com.liferay.portal.kernel.theme.ThemeDisplay.class
 		};
 	private static final Class<?>[] _getGroupsEntriesParameterTypes15 = new Class[] {
 			long.class, long.class, java.util.Date.class, int.class, int.class
@@ -1041,7 +1041,7 @@ public class BlogsEntryServiceHttp {
 			long.class, java.util.Date.class, int.class, int.class,
 			java.lang.String.class, double.class, java.lang.String.class,
 			java.lang.String.class, java.lang.String.class,
-			com.liferay.portal.theme.ThemeDisplay.class
+			com.liferay.portal.kernel.theme.ThemeDisplay.class
 		};
 	private static final Class<?>[] _moveEntryToTrashParameterTypes22 = new Class[] {
 			long.class
@@ -1061,7 +1061,7 @@ public class BlogsEntryServiceHttp {
 			int.class, boolean.class, boolean.class, java.lang.String[].class,
 			boolean.class, java.lang.String.class, java.lang.String.class,
 			java.io.InputStream.class,
-			com.liferay.portal.service.ServiceContext.class
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _updateEntryParameterTypes27 = new Class[] {
 			long.class, java.lang.String.class, java.lang.String.class,
@@ -1070,6 +1070,6 @@ public class BlogsEntryServiceHttp {
 			java.lang.String[].class, java.lang.String.class,
 			com.liferay.portal.kernel.servlet.taglib.ui.ImageSelector.class,
 			com.liferay.portal.kernel.servlet.taglib.ui.ImageSelector.class,
-			com.liferay.portal.service.ServiceContext.class
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 }

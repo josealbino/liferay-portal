@@ -65,6 +65,10 @@
 			<var name="portlet" value="Sites" />
 		</execute>
 
+		<execute macro="Site#searchInputCP">
+			<var name="siteName" value="Child SiteName 1" />
+		</execute>
+
 		<execute macro="Page#add">
 			<var name="page" value="Public Pages" />
 			<var name="pageName" value="Site Page" />
@@ -84,6 +88,10 @@
 			<var name="portlet" value="Sites" />
 		</execute>
 
+		<execute macro="Site#searchInputCP">
+			<var name="siteName" value="Child SiteName 2" />
+		</execute>
+
 		<execute macro="Page#add">
 			<var name="page" value="Public Pages" />
 			<var name="pageName" value="Site Page" />
@@ -101,6 +109,10 @@
 
 		<execute macro="ProductMenu#gotoControlPanelSites">
 			<var name="portlet" value="Sites" />
+		</execute>
+
+		<execute macro="Site#searchInputCP">
+			<var name="siteName" value="Child SiteName 3" />
 		</execute>
 
 		<execute macro="Page#add">
@@ -123,12 +135,13 @@
 			<var name="siteURL" value="true" />
 		</execute>
 
-		<execute macro="TestCase#getDefaultSiteName">
-			<return from="defaultSiteName" name="defaultSiteName" />
+		<execute macro="TestCase#getSiteName">
+			<return from="siteName" name="siteName" />
+			<var name="siteName" value="${siteName}" />
 		</execute>
 
 		<execute macro="SitesDirectory#viewDescriptivePG">
-			<var name="siteName" value="${defaultSiteName}" />
+			<var name="siteName" value="${siteName}" />
 		</execute>
 
 		<execute macro="SitesDirectory#viewDescriptivePG">
@@ -159,7 +172,7 @@
 		</execute>
 
 		<execute macro="SitesDirectory#viewListHierarchyPG">
-			<var name="availableSiteName" value="${defaultSiteName}" />
+			<var name="availableSiteName" value="${siteName}" />
 			<var name="childSiteName1" value="Child SiteName 1" />
 			<var name="childSiteName2" value="Child SiteName 2" />
 			<var name="childSiteName3" value="Child SiteName 3" />

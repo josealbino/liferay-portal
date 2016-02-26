@@ -16,12 +16,12 @@ package com.liferay.portal.model.impl;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.model.CacheModel;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.MVCCModel;
 import com.liferay.portal.kernel.util.HashUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.model.CacheModel;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.MVCCModel;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -79,7 +79,7 @@ public class LayoutCacheModel implements CacheModel<Layout>, Externalizable,
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(65);
+		StringBundler sb = new StringBundler(61);
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -129,10 +129,6 @@ public class LayoutCacheModel implements CacheModel<Layout>, Externalizable,
 		sb.append(themeId);
 		sb.append(", colorSchemeId=");
 		sb.append(colorSchemeId);
-		sb.append(", wapThemeId=");
-		sb.append(wapThemeId);
-		sb.append(", wapColorSchemeId=");
-		sb.append(wapColorSchemeId);
 		sb.append(", css=");
 		sb.append(css);
 		sb.append(", priority=");
@@ -267,20 +263,6 @@ public class LayoutCacheModel implements CacheModel<Layout>, Externalizable,
 			layoutImpl.setColorSchemeId(colorSchemeId);
 		}
 
-		if (wapThemeId == null) {
-			layoutImpl.setWapThemeId(StringPool.BLANK);
-		}
-		else {
-			layoutImpl.setWapThemeId(wapThemeId);
-		}
-
-		if (wapColorSchemeId == null) {
-			layoutImpl.setWapColorSchemeId(StringPool.BLANK);
-		}
-		else {
-			layoutImpl.setWapColorSchemeId(wapColorSchemeId);
-		}
-
 		if (css == null) {
 			layoutImpl.setCss(StringPool.BLANK);
 		}
@@ -353,8 +335,6 @@ public class LayoutCacheModel implements CacheModel<Layout>, Externalizable,
 		iconImageId = objectInput.readLong();
 		themeId = objectInput.readUTF();
 		colorSchemeId = objectInput.readUTF();
-		wapThemeId = objectInput.readUTF();
-		wapColorSchemeId = objectInput.readUTF();
 		css = objectInput.readUTF();
 
 		priority = objectInput.readInt();
@@ -475,20 +455,6 @@ public class LayoutCacheModel implements CacheModel<Layout>, Externalizable,
 			objectOutput.writeUTF(colorSchemeId);
 		}
 
-		if (wapThemeId == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(wapThemeId);
-		}
-
-		if (wapColorSchemeId == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(wapColorSchemeId);
-		}
-
 		if (css == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -541,8 +507,6 @@ public class LayoutCacheModel implements CacheModel<Layout>, Externalizable,
 	public long iconImageId;
 	public String themeId;
 	public String colorSchemeId;
-	public String wapThemeId;
-	public String wapColorSchemeId;
 	public String css;
 	public int priority;
 	public String layoutPrototypeUuid;

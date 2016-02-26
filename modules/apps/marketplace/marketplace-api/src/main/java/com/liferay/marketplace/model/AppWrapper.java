@@ -16,12 +16,13 @@ package com.liferay.marketplace.model;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.ModelWrapper;
-import com.liferay.portal.service.ServiceContext;
+import com.liferay.expando.kernel.model.ExpandoBridge;
 
-import com.liferay.portlet.expando.model.ExpandoBridge;
-import com.liferay.portlet.exportimport.lar.StagedModelType;
+import com.liferay.exportimport.kernel.lar.StagedModelType;
+
+import com.liferay.portal.kernel.model.ModelWrapper;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.io.Serializable;
 
@@ -444,7 +445,7 @@ public class AppWrapper implements App, ModelWrapper<App> {
 
 	@Override
 	public void setExpandoBridgeAttributes(
-		com.liferay.portal.model.BaseModel<?> baseModel) {
+		com.liferay.portal.kernel.model.BaseModel<?> baseModel) {
 		_app.setExpandoBridgeAttributes(baseModel);
 	}
 
@@ -569,7 +570,7 @@ public class AppWrapper implements App, ModelWrapper<App> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.marketplace.model.App> toCacheModel() {
+	public com.liferay.portal.kernel.model.CacheModel<com.liferay.marketplace.model.App> toCacheModel() {
 		return _app.toCacheModel();
 	}
 

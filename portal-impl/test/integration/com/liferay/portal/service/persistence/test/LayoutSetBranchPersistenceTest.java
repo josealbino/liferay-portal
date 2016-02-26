@@ -14,13 +14,17 @@
 
 package com.liferay.portal.service.persistence.test;
 
-import com.liferay.portal.exception.NoSuchLayoutSetBranchException;
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
+import com.liferay.portal.kernel.exception.NoSuchLayoutSetBranchException;
+import com.liferay.portal.kernel.model.LayoutSetBranch;
+import com.liferay.portal.kernel.service.LayoutSetBranchLocalServiceUtil;
+import com.liferay.portal.kernel.service.persistence.LayoutSetBranchPersistence;
+import com.liferay.portal.kernel.service.persistence.LayoutSetBranchUtil;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.TransactionalTestRule;
@@ -32,10 +36,6 @@ import com.liferay.portal.kernel.util.OrderByComparatorFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.LayoutSetBranch;
-import com.liferay.portal.service.LayoutSetBranchLocalServiceUtil;
-import com.liferay.portal.service.persistence.LayoutSetBranchPersistence;
-import com.liferay.portal.service.persistence.LayoutSetBranchUtil;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PersistenceTestRule;
 
@@ -146,10 +146,6 @@ public class LayoutSetBranchPersistenceTest {
 
 		newLayoutSetBranch.setColorSchemeId(RandomTestUtil.randomString());
 
-		newLayoutSetBranch.setWapThemeId(RandomTestUtil.randomString());
-
-		newLayoutSetBranch.setWapColorSchemeId(RandomTestUtil.randomString());
-
 		newLayoutSetBranch.setCss(RandomTestUtil.randomString());
 
 		newLayoutSetBranch.setSettings(RandomTestUtil.randomString());
@@ -194,10 +190,6 @@ public class LayoutSetBranchPersistenceTest {
 			newLayoutSetBranch.getThemeId());
 		Assert.assertEquals(existingLayoutSetBranch.getColorSchemeId(),
 			newLayoutSetBranch.getColorSchemeId());
-		Assert.assertEquals(existingLayoutSetBranch.getWapThemeId(),
-			newLayoutSetBranch.getWapThemeId());
-		Assert.assertEquals(existingLayoutSetBranch.getWapColorSchemeId(),
-			newLayoutSetBranch.getWapColorSchemeId());
 		Assert.assertEquals(existingLayoutSetBranch.getCss(),
 			newLayoutSetBranch.getCss());
 		Assert.assertEquals(existingLayoutSetBranch.getSettings(),
@@ -278,8 +270,7 @@ public class LayoutSetBranchPersistenceTest {
 			"companyId", true, "userId", true, "userName", true, "createDate",
 			true, "modifiedDate", true, "privateLayout", true, "name", true,
 			"description", true, "master", true, "logoId", true, "themeId",
-			true, "colorSchemeId", true, "wapThemeId", true,
-			"wapColorSchemeId", true, "layoutSetPrototypeUuid", true,
+			true, "colorSchemeId", true, "layoutSetPrototypeUuid", true,
 			"layoutSetPrototypeLinkEnabled", true);
 	}
 
@@ -529,10 +520,6 @@ public class LayoutSetBranchPersistenceTest {
 		layoutSetBranch.setThemeId(RandomTestUtil.randomString());
 
 		layoutSetBranch.setColorSchemeId(RandomTestUtil.randomString());
-
-		layoutSetBranch.setWapThemeId(RandomTestUtil.randomString());
-
-		layoutSetBranch.setWapColorSchemeId(RandomTestUtil.randomString());
 
 		layoutSetBranch.setCss(RandomTestUtil.randomString());
 

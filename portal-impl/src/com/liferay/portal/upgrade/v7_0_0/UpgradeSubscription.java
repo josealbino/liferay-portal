@@ -14,24 +14,24 @@
 
 package com.liferay.portal.upgrade.v7_0_0;
 
+import com.liferay.blogs.kernel.model.BlogsEntry;
+import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.document.library.kernel.model.DLFileEntryType;
+import com.liferay.document.library.kernel.model.DLFolder;
+import com.liferay.message.boards.kernel.model.MBCategory;
+import com.liferay.message.boards.kernel.model.MBThread;
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.PortletPreferences;
+import com.liferay.portal.kernel.model.WorkflowInstanceLink;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.PortletPreferences;
-import com.liferay.portal.model.WorkflowInstanceLink;
-import com.liferay.portal.util.PortalUtil;
-import com.liferay.portlet.blogs.model.BlogsEntry;
-import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-import com.liferay.portlet.documentlibrary.model.DLFileEntryType;
-import com.liferay.portlet.documentlibrary.model.DLFolder;
-import com.liferay.portlet.messageboards.model.MBCategory;
-import com.liferay.portlet.messageboards.model.MBThread;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -262,13 +262,12 @@ public class UpgradeSubscription extends UpgradeProcess {
 			"com.liferay.dynamic.data.mapping.kernel.DDMStructure",
 			"DDMStructure,groupId,structureId");
 		_getGroupIdSQLPartsMap.put(
-			"com.liferay.portlet.journal.model.JournalFolder",
+			"com.liferay.journal.model.JournalFolder",
 			"JournalFolder,groupId,folderId");
 		_getGroupIdSQLPartsMap.put(
-			"com.liferay.portlet.wiki.model.WikiNode",
-			"WikiNode,groupId,nodeId");
+			"com.liferay.wiki.model.WikiNode", "WikiNode,groupId,nodeId");
 		_getGroupIdSQLPartsMap.put(
-			"com.liferay.portlet.wiki.model.WikiPage",
+			"com.liferay.wiki.model.WikiPage",
 			"WikiPage,groupId,resourcePrimKey");
 	}
 

@@ -16,10 +16,10 @@ package com.liferay.portlet.documentlibrary.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.document.library.kernel.service.DLTrashServiceUtil;
+
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-
-import com.liferay.portlet.documentlibrary.service.DLTrashServiceUtil;
 
 import java.rmi.RemoteException;
 
@@ -64,7 +64,7 @@ public class DLTrashServiceSoap {
 	*/
 	public static com.liferay.portal.kernel.repository.model.FileEntrySoap moveFileEntryFromTrash(
 		long fileEntryId, long newFolderId,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.portal.kernel.repository.model.FileEntry returnValue = DLTrashServiceUtil.moveFileEntryFromTrash(fileEntryId,
@@ -110,7 +110,7 @@ public class DLTrashServiceSoap {
 	*/
 	public static com.liferay.portal.kernel.repository.model.FolderSoap moveFolderFromTrash(
 		long folderId, long parentFolderId,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.portal.kernel.repository.model.Folder returnValue = DLTrashServiceUtil.moveFolderFromTrash(folderId,

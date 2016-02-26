@@ -660,8 +660,6 @@ create table Layout (
 	iconImageId LONG,
 	themeId VARCHAR(75) null,
 	colorSchemeId VARCHAR(75) null,
-	wapThemeId VARCHAR(75) null,
-	wapColorSchemeId VARCHAR(75) null,
 	css TEXT null,
 	priority INTEGER,
 	layoutPrototypeUuid VARCHAR(75) null,
@@ -741,8 +739,6 @@ create table LayoutRevision (
 	iconImageId LONG,
 	themeId VARCHAR(75) null,
 	colorSchemeId VARCHAR(75) null,
-	wapThemeId VARCHAR(75) null,
-	wapColorSchemeId VARCHAR(75) null,
 	css TEXT null,
 	status INTEGER,
 	statusByUserId LONG,
@@ -761,8 +757,6 @@ create table LayoutSet (
 	logoId LONG,
 	themeId VARCHAR(75) null,
 	colorSchemeId VARCHAR(75) null,
-	wapThemeId VARCHAR(75) null,
-	wapColorSchemeId VARCHAR(75) null,
 	css TEXT null,
 	pageCount INTEGER,
 	settings_ TEXT null,
@@ -786,8 +780,6 @@ create table LayoutSetBranch (
 	logoId LONG,
 	themeId VARCHAR(75) null,
 	colorSchemeId VARCHAR(75) null,
-	wapThemeId VARCHAR(75) null,
-	wapColorSchemeId VARCHAR(75) null,
 	css TEXT null,
 	settings_ TEXT null,
 	layoutSetPrototypeUuid VARCHAR(75) null,
@@ -1575,6 +1567,7 @@ create table User_ (
 	screenName VARCHAR(75) null,
 	emailAddress VARCHAR(75) null,
 	facebookId LONG,
+	googleUserId VARCHAR(75) null,
 	ldapServerId LONG,
 	openId VARCHAR(1024) null,
 	portraitId LONG,
@@ -1611,8 +1604,7 @@ create table UserGroup (
 	parentUserGroupId LONG,
 	name VARCHAR(75) null,
 	description STRING null,
-	addedByLDAPImport BOOLEAN,
-	lastPublishDate DATE null
+	addedByLDAPImport BOOLEAN
 );
 
 create table UserGroupGroupRole (

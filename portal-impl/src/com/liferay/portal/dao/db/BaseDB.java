@@ -14,7 +14,7 @@
 
 package com.liferay.portal.dao.db;
 
-import com.liferay.counter.service.CounterLocalServiceUtil;
+import com.liferay.counter.kernel.service.CounterLocalServiceUtil;
 import com.liferay.portal.dao.orm.common.SQLTransformer;
 import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.portal.kernel.dao.db.DB;
@@ -274,8 +274,8 @@ public abstract class BaseDB implements DB {
 					sql = sql.substring(0, sql.length() - 1);
 				}
 
-				if (sql.endsWith("go")) {
-					sql = sql.substring(0, sql.length() - 2);
+				if (sql.endsWith(" go")) {
+					sql = sql.substring(0, sql.length() - 3);
 				}
 
 				if (_log.isDebugEnabled()) {

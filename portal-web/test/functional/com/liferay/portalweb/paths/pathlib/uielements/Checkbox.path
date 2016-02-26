@@ -54,6 +54,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>DISPLAY_FACET</td>
+	<td>//div[@style='']//label[contains(.,'Display Facet')]/input[@type='checkbox']</td>
+	<td></td>
+</tr>
+<tr>
 	<td>DISPLAY_IMMEDIATELY</td>
 	<td>//input[contains(@name,'displayImmediately')]</td>
 	<td></td>
@@ -315,7 +320,7 @@
 </tr>
 <tr>
 	<td>STAGED_CONTENT</td>
-	<td>//label[contains(.,'${key_contentName}')]/input</td>
+	<td>//li[contains(.,'${key_contentName}')]//input</td>
 	<td></td>
 </tr>
 <tr>

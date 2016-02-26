@@ -229,12 +229,12 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			boolean bndInheritRequired = (Boolean)bndInheritTuple.getObject(1);
 
 			if (bndContent.contains("-dsannotations-options: inherit")) {
-				if (!bndInheritRequired) {
+				/*if (!bndInheritRequired) {
 					printError(
 						bndFileLocation,
 						"Redundant '-dsannotations-options: inherit': " +
 							bndFileLocation + "bnd.bnd");
-				}
+				}*/
 			}
 			else if (bndInheritRequired) {
 				printError(
@@ -555,8 +555,9 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			newContent, packagePath, className);
 
 		newContent = StringUtil.replace(
-			newContent, new String[] {";\n/**", "\t/*\n\t *", ";;\n"},
-			new String[] {";\n\n/**", "\t/**\n\t *", ";\n"});
+			newContent,
+			new String[] {";\n/**", "\t/*\n\t *", ";;\n", "\n/**\n *\n *"},
+			new String[] {";\n\n/**", "\t/**\n\t *", ";\n", "\n/**\n *"});
 
 		newContent = fixMissingEmptyLines(newContent);
 
@@ -3368,33 +3369,6 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 		}
 	}
 
-	protected int getLineLength(String line) {
-		int lineLength = 0;
-
-		int tabLength = 4;
-
-		for (char c : line.toCharArray()) {
-			if (c == CharPool.TAB) {
-				for (int i = 0; i < tabLength; i++) {
-					lineLength++;
-				}
-
-				tabLength = 4;
-			}
-			else {
-				lineLength++;
-
-				tabLength--;
-
-				if (tabLength <= 0) {
-					tabLength = 4;
-				}
-			}
-		}
-
-		return lineLength;
-	}
-
 	protected int getLineStartPos(String content, int lineCount) {
 		int x = 0;
 
@@ -3628,13 +3602,12 @@ public class JavaSourceProcessor extends BaseSourceProcessor {
 			"**/test/**/*PersistenceTest.java", "**/source/formatter/**"
 		};
 		includes = new String[] {
-			"**/com/liferay/portal/service/ServiceContext*.java",
+			"**/com/liferay/portal/kernel/service/ServiceContext*.java",
 			"**/model/BaseModel.java", "**/model/impl/BaseModelImpl.java",
 			"**/portal-test/**/portal/service/**/*.java",
 			"**/portal-test-internal/**/portal/service/**/*.java",
 			"**/service/Base*.java",
 			"**/service/PersistedModelLocalService*.java",
-			"**/service/base/PrincipalBean.java",
 			"**/service/http/*HttpTest.java", "**/service/http/*SoapTest.java",
 			"**/service/http/TunnelUtil.java", "**/service/impl/*.java",
 			"**/service/jms/*.java", "**/service/permission/*.java",
